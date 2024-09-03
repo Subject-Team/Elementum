@@ -8,15 +8,28 @@
 
 config_version=5
 
+[Elementum]
+
+Elementum/Addons={
+"Test": "\"res://addons/Elementum/test.element\""
+}
+
 [application]
 
 config/name="Elementum"
 config/version="1.0.0-alpha"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 boot_splash/bg_color=Color(1, 1, 1, 1)
-boot_splash/image="res://icon.png"
-boot_splash/fullsize=false
+boot_splash/image="res://logo.png"
 config/icon="res://icon.svg"
+
+[autoload]
+
+Elementum="*res://addons/Elementum/ElementumInterface.gd"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/Elementum/plugin.cfg")
 
 [rendering]
 

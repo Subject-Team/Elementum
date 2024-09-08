@@ -1,2 +1,2 @@
 # Elementum
- Powerful plugin manager for Godot
+ Powerful library manager for Godot

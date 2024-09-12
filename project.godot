@@ -10,7 +10,9 @@ config_version=5
 
 [Elementum]
 
-Elementum/Addons={}
+Elementum/Addons={
+"Test": "res://Elementum/Test.gd"
+}
 
 [application]
 
@@ -18,12 +20,13 @@ config/name="Elementum"
 config/version="1.0.0-alpha"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 boot_splash/bg_color=Color(1, 1, 1, 1)
-boot_splash/image="res://logo.png"
+boot_splash/image="res://Loading.png"
 config/icon="res://icon.svg"
 
 [autoload]
 
-Elementum="*res://addons/Elementum/ElementumInterface.gd"
+ElementumClass="*res://addons/Elementum/ElementumClass.gd"
+Test="*res://Elementum/Test.gd"
 
 [editor_plugins]
 

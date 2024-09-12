@@ -34,7 +34,10 @@ func _save_file():
 
 
 func _load_file():
-	var file = FileAccess.open(LIBRARIES_FILE_LOCATION, FileAccess.READ)
-	var content = file.get_as_text()
-	file.close()
-	return JSON.parse_string(content)
+	if FileAccess.file_exists(LIBRARIES_FILE_LOCATION):
+		var file = FileAccess.open(LIBRARIES_FILE_LOCATION, FileAccess.READ)
+		var content = file.get_as_text()
+		file.close()
+		return JSON.parse_string(content)
+	else:
+		return {}

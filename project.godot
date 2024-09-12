@@ -10,9 +10,7 @@ config_version=5
 
 [Elementum]
 
-Elementum/Addons={
-"Test": "res://Elementum/Test.gd"
-}
+Elementum/Addons={}
 
 [application]
 

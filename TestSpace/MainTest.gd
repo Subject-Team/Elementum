@@ -1,4 +1,4 @@
 extends Node
 
 func _ready():
-	pass
+	Test.printer(2)

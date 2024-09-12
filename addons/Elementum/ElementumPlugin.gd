@@ -1,83 +1,40 @@
 @tool
+class_name Elemetum_Main
 extends EditorPlugin
 
-const ADDONS_FILE_LOCATION: String = "res://addons/Elementum/addons.elementcfg"
+## Elementum plugin main class
 
-var addons: Dictionary = {
+## File location for save and load libraries
+const LIBRARIES_FILE_LOCATION: String = "res://addons/Elementum/libraries.txt"
+
+## Libraries names and locations
+var libraries: Dictionary = {
 	
 }
 
-#region error codes
-const ERR_ADDONS_SETTING_LOAD = 1
-
-const ERR_ADDONS_SETTING_SAVE = 2
-#endregion
-
 func _enter_tree():
-	add_autoload_singleton("Elementum", "res://addons/Elementum/ElementumInterface.gd")
-	load_addons()
-	ProjectSettings.set("Elementum/Elementum/Addons", addons)
-	print(addons)
-	for addon in addons.keys():
-		load_addon_settings(addon)
-	save_addons()
+	#add_autoload_singleton("Elementum-Class", "res://addons/Elementum/ElementumClass.gd")
+	libraries = _load_file()
+	ProjectSettings.set("Elementum/Elementum/Addons", libraries)
+	for lib in libraries:
+		add_autoload_singleton(lib, libraries[lib])
+	_save_file()
 
 
 func _exit_tree():
-	save_addons()
-	for addon in addons.keys():
-		save_addon_settings(addon)
+	_save_file()
+	for lib in libraries:
+		remove_autoload_singleton(lib)
 
 
-func load_addons():
-	if FileAccess.file_exists(ADDONS_FILE_LOCATION):
-		var file = FileAccess.open(ADDONS_FILE_LOCATION, FileAccess.READ)
-		if addons != null:
-			addons = file.get_var()
-		file.close()
-
-
-func save_addons():
-	var file = FileAccess.open(ADDONS_FILE_LOCATION, FileAccess.WRITE)
-	file.store_var(addons)
+func _save_file():
+	var file = FileAccess.open(LIBRARIES_FILE_LOCATION, FileAccess.WRITE)
+	file.store_string(JSON.stringify(libraries))
 	file.close()
 
 
-func load_addon_settings(current_addon):
-	var current_addon_file: String = addons[current_addon]
-	var current_addon_settings: Dictionary = {}
-	if FileAccess.file_exists(current_addon_file):
-		var file = FileAccess.open(current_addon_file, FileAccess.READ)
-		current_addon_settings = file.get_var()
-		file.close()
-		for setting in current_addon_settings.keys():
-			ProjectSettings.set("Elementum/" + current_addon + "/" + setting, current_addon_settings[setting])
-	else:
-		elementum_error(ERR_ADDONS_SETTING_LOAD)
-		get_tree().quit()
-
-
-func save_addon_settings(current_addon):
-	var current_addon_file: String = addons[current_addon]
-	var current_addon_settings: Dictionary = {}
-	if FileAccess.file_exists(current_addon_file):
-		var file = FileAccess.open(current_addon_file, FileAccess.READ)
-		current_addon_settings = file.get_var()
-		file.close()
-		for setting in current_addon_settings.keys():
-			current_addon_settings[setting] = ProjectSettings.get_setting("Elementum/" + current_addon + "/" + setting)
-		var save = FileAccess.open(current_addon_file, FileAccess.WRITE)
-		save.store_var(current_addon_settings)
-		save.close()
-	else:
-		elementum_error(ERR_ADDONS_SETTING_SAVE)
-		get_tree().quit()
-
-
-func elementum_error(error_code: int = 0):
-	if error_code == ERR_ADDONS_SETTING_LOAD:
-		push_error("Elementum: can't load addons setting!")
-	if error_code == ERR_ADDONS_SETTING_SAVE:
-		push_error("Elementum: can't save addons setting!")
-
-
+func _load_file():
+	var file = FileAccess.open(LIBRARIES_FILE_LOCATION, FileAccess.READ)
+	var content = file.get_as_text()
+	file.close()
+	return JSON.parse_string(content)

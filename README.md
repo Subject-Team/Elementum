@@ -7,7 +7,6 @@
 2. **Import Plugin**: Open your project, go to `AssetLib`, click on `Import...` and import `Elementum-Plugin.zip` file.
 3. **Activate Plugin**: Go to `Project > Project Settings > Plugins` and set `Elementum` status to `enable`.
 4. **Remove Plugin Zip**: Now you can remove `Elementum-Plugin.zip`.
-5. **AutoLoad Setup**: Go to `Project Settings > Auto Load`, and add `res://addons/Elementum/ElementumClass.gd` with the name `ElementumClass` in project autoload.
 ### Step2: Install Libraries
 1. **Download Libraries**: See [this page](https://github.com/Subject-Team/Elementum/wiki/Libraries) for browse Elementum libraries, you can click on libraries to see repository. in library ripository you can download library from releases.
 2. **Create Libraries Folder**: Go to the main folder of your project and create a "Elementum" folder.

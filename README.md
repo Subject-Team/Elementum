@@ -9,25 +9,16 @@
 4. **Remove Plugin Zip**: Now you can remove `Elementum-Plugin.zip`.
 ### Step2: Install Libraries
 1. **Download Libraries**: See [this page](https://github.com/Subject-Team/Elementum/wiki/Libraries) for browse Elementum libraries, you can click on libraries to see repository. in library ripository you can download library from releases.
-2. **Create Libraries Folder**: Go to the main folder of your project and create a "Elementum" folder.
-3. **Create Folder For Each Library** (recommended): In "Elementum" folder create new folders for each libraries, this will make your project more organized.
-4. **Install Libraries**: Save libraries in folders.
-5. **Introduce libraries**: Open `res://addons/Elementum/libraries.txt` and create a dictionary of your libraries like this:
-   ```
-   {
-   "FileManger" : "res://Elementum/FileManger/FileManger.gd",
-   "ArrayTools" : "res://Elementum/ArrayTools/ArrayTools.gd",
-   }
-   ```
-   After write dictionary and save it, you need reload your project using `Project > Reload Current Project`
+2. **Import Libraries**: Open your project, go to `AssetLib`, click on `Import...` and import library `.zip` file.
+3. **Reload Project**: Use `Project>Reload Current Project`.
 ### Finish
 Now you can use libraries, for guides you should see library repository.
 
 ## How Create Library?
 1. **Create ripository**: Create a godot project and add project to github.
-2. **Create Library**: You should use this themplate (don't froget [GDScript Style Guide](https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_styleguide.html)!):
+2. **Create Library**: Create script in `addons/Elementum/Libraries/` folder with this themplate (don't froget [GDScript Style Guide](https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_styleguide.html)!):
    ```
-   class_name %your_library_name%
+   class_name %your_library_name%_Elementum
    extends Elementum
 
    func exampel(test_parameter):
@@ -36,4 +27,5 @@ Now you can use libraries, for guides you should see library repository.
    ...
    ```
 3. **Write Docs**: See [here](https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_documentation_comments.html) for documentation in Godot.
-4. **Publish Library**: Add your repository to [Elementum libraries page](https://github.com/Subject-Team/Elementum/wiki/Libraries)
+4. **Create A Release**: Create a `.zip` file from `addons` folder (You should have only that: `addons/Elemntum/Libraries/%LibraryName%.gd`) and upload it as release.
+5. **Publish Library**: Add your repository to [Elementum libraries page](https://github.com/Subject-Team/Elementum/wiki/Libraries)

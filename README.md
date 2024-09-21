@@ -6,7 +6,7 @@
 1. **Get Plugin**: Download and install elementum plugin from [releases](https://github.com/Subject-Team/Elementum/releases).
 2. **Import Plugin**: Open your project, go to `AssetLib`, click on `Import...` and import `Elementum-Plugin.zip` file.
 3. **Activate Plugin**: Go to `Project > Project Settings > Plugins` and set `Elementum` status to `enable`.
-4. **Remove Plugin Zip**: Now you can remove `Elementum-Plugin.zip`.
+4. **Remove Plugin Zip**: Now you can remove `Elementum.zip`.
 ### Step2: Install Libraries
 1. **Download Libraries**: See [this page](https://github.com/Subject-Team/Elementum/wiki/Libraries) for browse Elementum libraries, you can click on libraries to see repository. in library ripository you can download library from releases.
 2. **Import Libraries**: Open your project, go to `AssetLib`, click on `Import...` and import library `.zip` file.

@@ -1,43 +1,31 @@
 @tool
-class_name Elemetum_Main
+class_name Elemetum_Plugin
 extends EditorPlugin
 
 ## Elementum plugin main class
 
-## File location for save and load libraries
-const LIBRARIES_FILE_LOCATION: String = "res://addons/Elementum/libraries.txt"
-
-## Libraries names and locations
-var libraries: Dictionary = {
-	
-}
-
 func _enter_tree():
-	#add_autoload_singleton("Elementum-Class", "res://addons/Elementum/ElementumClass.gd")
-	libraries = _load_file()
-	ProjectSettings.set("Elementum/Elementum/Addons", libraries)
-	for lib in libraries:
-		add_autoload_singleton(lib, libraries[lib])
-	_save_file()
-
+	var dir := DirAccess.open("res://addons/Elementum/Libraries")
+	if dir != null:
+		dir.list_dir_begin()
+		for file: String in dir.get_files():
+			var lib_path := dir.get_current_dir() + "/" + file
+			var lib_name = lib_path.get_file().split(".")[0]
+			add_autoload_singleton(lib_name, lib_path)
+		if not ProjectSettings.has_setting("Elementum/Settings/LoadMessage"):
+			ProjectSettings.set_setting("Elementum/Settings/LoadMessage", "Elementum libraries loaded, ENJOY!")
+		ProjectSettings.set_initial_value("Elementum/Settings/LoadMessage", "Elementum libraries loaded, ENJOY!")
+		if not ProjectSettings.has_setting("Elementum/Settings/ShowLoadMessage"):
+			ProjectSettings.set_setting("Elementum/Settings/ShowLoadMessage", true)
+		ProjectSettings.set_initial_value("Elementum/Settings/ShowLoadMessage", true)
+		if ProjectSettings.get_setting("Elementum/Settings/ShowLoadMessage"):
+			print_debug(ProjectSettings.get_setting("Elementum/Settings/LoadMessage"))
 
 func _exit_tree():
-	_save_file()
-	for lib in libraries:
-		remove_autoload_singleton(lib)
-
-
-func _save_file():
-	var file = FileAccess.open(LIBRARIES_FILE_LOCATION, FileAccess.WRITE)
-	file.store_string(JSON.stringify(libraries))
-	file.close()
-
-
-func _load_file():
-	if FileAccess.file_exists(LIBRARIES_FILE_LOCATION):
-		var file = FileAccess.open(LIBRARIES_FILE_LOCATION, FileAccess.READ)
-		var content = file.get_as_text()
-		file.close()
-		return JSON.parse_string(content)
-	else:
-		return {}
+	var dir := DirAccess.open("res://addons/Elementum/Libraries")
+	if dir == null: printerr("Could not open folder"); return
+	dir.list_dir_begin()
+	for file: String in dir.get_files():
+		var lib_path := dir.get_current_dir() + "/" + file
+		var lib_name = lib_path.get_file().split(".")[0]
+		remove_autoload_singleton(lib_name)

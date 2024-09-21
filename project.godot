@@ -8,10 +8,6 @@
 
 config_version=5
 
-[Elementum]
-
-Elementum/Addons={}
-
 [application]
 
 config/name="Elementum"
@@ -23,8 +19,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-ElementumClass="*res://addons/Elementum/ElementumClass.gd"
-Test="*res://Elementum/Test.gd"
+Test="*res://addons/Elementum/Liraries/Test.gd"
 
 [editor_plugins]
 
